@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import "chart.js/auto";
+import { Line } from "react-chartjs-2";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showChart, setShowChart] = useState(false);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>Simple Stock Screener</h1>
+      {showChart && (
+        <Line
+          datasetIdKey="id"
+          data={{
+            labels: ["03:00 pm", "04:00 pm", "05:00 pm", "06:00 pm", "07:00 pm", "08:00 pm"],
+            datasets: [
+              {
+                id: 1,
+                label: "MSFT",
+                data: [438.33, 437.98, 439.11, 438.39, 439.01, 439.79],
+              },
+            ],
+          }}
+        />
+      )}
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button
+          onClick={() => {
+            setShowChart(!showChart);
+          }}
+        >
+          Show Chart
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
